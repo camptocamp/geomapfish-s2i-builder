@@ -11,8 +11,8 @@ ENV \
     STI_SCRIPTS_PATH=/usr/libexec/s2i \
 
     # The $HOME is not set by default, but some applications needs this variable
-    HOME=/opt/app-root/src \
-    PATH=/opt/app-root/src/bin:/opt/app-root/bin:$PATH
+    HOME=/opt/app-root \
+    PATH=/opt/app-root/bin:$PATH
 
 RUN cat /etc/apt/sources.list
 
@@ -34,11 +34,13 @@ apt-get clean
 # application runtime execution.
 RUN useradd -u 1001 -r -g 0 -d ${HOME} -s /sbin/nologin \
 -c "Default Application User" default && \
-    mkdir -p /opt/app-root
+    mkdir -p ${HOME}
 
 # Chown /opt/app-root to the deployment user and drop privileges
-RUN chown -R 1001:0 /opt/app-root && \
-    chmod -R og+rwx /opt/app-root
+RUN chown -R 1001:1001 ${HOME}
+
+# Chown /usr/lib/node_modules to the deployment user as libs are updated in the build
+RUN chown -R 1001:1001 /usr/lib/node_modules
 
 #Copy the S2I scripts to /usr/libexec/s2i, since openshift/base-centos7 image
 COPY ./.s2i/bin/ /usr/libexec/s2i

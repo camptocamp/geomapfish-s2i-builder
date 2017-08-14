@@ -23,6 +23,8 @@ fi
 echo "---> Installing application source..."
 cp -Rf /tmp/src/. ./
 
+fix-permissions /opt/app-root
+
 echo "---> Building application from source..."
 # Build steps
 rm -rf node_modules || true

@@ -1,5 +1,5 @@
 
-IMAGE_NAME = geomapfish-s2i-builder
+IMAGE_NAME = camptocamp/geomapfish-s2i-builder
 
 build:
 	docker build -t $(IMAGE_NAME) .
