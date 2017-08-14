@@ -47,5 +47,9 @@ COPY bin/ /usr/bin/
 # can execute relative to this path.
 WORKDIR ${HOME}
 
+
+# Set the default user for the image, the user itself was created in the base image
+USER 1001
+
 ENTRYPOINT ["container-entrypoint"]
 CMD ["base-usage"]
