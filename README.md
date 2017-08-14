@@ -1,25 +1,23 @@
-# geomapfish S2I Base Docker Image
+# Ubuntu S2I Base Docker Image
 
-This repository contains a Dockerfile that serves as the base image with all essential libraries and tools needed for building geopmapfish
+This repository contains a Dockerfile that serves as the base image with all essential libraries and tools needed for OpenShift language images, namely:
 
-The origin/entrypoint of the build is camptocamp/geomapfish_build:jenkins
+* [s2i-swift](https://github.com/ComputerScienceHouse/s2i-swift)
 
 ## Installation and Usage
 
-To build the base image from scratch, run:
+This image is available on DockerHub. To pull the latest image (16.04), run:
 
 ```
-git clone https://github.com/camptocamp/geomapfish-s2i-builder.git
-cd geomapfish-s2i-builder
+docker pull computersciencehouse/s2i-base-ubuntu
+```
+
+To build the base image for 16.04 from scratch, run:
+
+```
+git clone https://github.com/ComputerScienceHouse/s2i-base-ubuntu.git
+cd s2i-base-ubuntu/16.04
 make build
-```
-
-Or
-
-To build within openshift, run:
-
-```
-oc new-build openshift/sti-image-builder~git@github.com:camptocamp/geomapfish-s2i-builder.git --name=geomapfish-s2i-builder
 ```
 
 ## Test

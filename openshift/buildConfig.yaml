@@ -19,7 +19,7 @@ spec:
         name: "openshift/sti-image-builder"
       env:
         - name: "IMAGE_NAME"
-          value: "geomapfish-s2i-builder"
+          value: "camptocamp/geomapfish-s2i-builder"
         - name: "CONTEXT_DIR"
           value: "/2.0/"
       exposeDockerSocket: true
