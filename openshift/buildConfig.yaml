@@ -1,0 +1,29 @@
+kind: "BuildConfig"
+apiVersion: "v1"
+metadata:
+  name: "geomapfish-s2i-builder"
+spec:
+  triggers:
+    - type: "GitHub"
+      github:
+        secret: "secret101"
+  source:
+    type: "Git"
+    git:
+      uri: "git://github.com/camptocamp/geomapfish-s2i-builder"
+  strategy:
+    type: "Custom"
+    customStrategy:
+      from:
+        kind: "DockerImage"
+        name: "openshift/sti-image-builder"
+      env:
+        - name: "IMAGE_NAME"
+          value: "camptocamp/geomapfish-s2i-builder"
+        - name: "CONTEXT_DIR"
+          value: "/2.0/"
+      exposeDockerSocket: true
+  output:
+    to:
+      kind: "ImageStreamTag"
+      name: "geomapfish-s2i-builder:latest"
