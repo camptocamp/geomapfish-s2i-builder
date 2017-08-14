@@ -34,8 +34,11 @@ apt-get clean
 # application runtime execution.
 RUN useradd -u 1001 -r -g 0 -d ${HOME} -s /sbin/nologin \
 -c "Default Application User" default && \
-mkdir -p /opt/app-root && \
-chown -R 1001:0 /opt/app-root
+    mkdir -p /opt/app-root
+
+# Chown /opt/app-root to the deployment user and drop privileges
+RUN chown -R 1001:0 /opt/app-root && \
+    chmod -R og+rwx /opt/app-root
 
 #Copy the S2I scripts to /usr/libexec/s2i, since openshift/base-centos7 image
 COPY ./.s2i/bin/ /usr/libexec/s2i
@@ -46,7 +49,6 @@ COPY bin/ /usr/bin/
 # Directory with the sources is set as the working directory so all STI scripts
 # can execute relative to this path.
 WORKDIR ${HOME}
-
 
 # Set the default user for the image, the user itself was created in the base image
 USER 1001
